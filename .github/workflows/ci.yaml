@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker image
+        run: |
+          poetry install --dev
+      - name: Build docker image
+        run: |
+          poetry run flake8 src tests
+      - name: Build docker image
+        run: |
+          poetry run flake8 src tests
