@@ -19,10 +19,13 @@ jobs:
           poetry config virtualenvs.in-project true
       - name: Build docker image
         run: |
+          source $HOME/.poetry/env
           poetry install --dev
       - name: Build docker image
         run: |
+          source $HOME/.poetry/env
           poetry run flake8 src tests
       - name: Build docker image
         run: |
+          source $HOME/.poetry/env
           poetry run flake8 src tests
