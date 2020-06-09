@@ -11,21 +11,25 @@ jobs:
       SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v2
-      - name: Build docker image
+      - name: Installing Poetry
         run: |
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -o get-poetry.py
-          python get-poetry.py
+          python3 get-poetry.py
           source $HOME/.poetry/env
           poetry config virtualenvs.in-project true
-      - name: Build docker image
+      - name: Installing deps
         run: |
           source $HOME/.poetry/env
           poetry install
-      - name: Build docker image
+      - name: Running flake8
         run: |
           source $HOME/.poetry/env
           poetry run flake8 src tests
-      - name: Build docker image
+      - name: Running black
         run: |
           source $HOME/.poetry/env
-          poetry run flake8 src tests
+          poetry run black --check src tests
+      - name: Running isort
+        run: |
+          source $HOME/.poetry/env
+          poetry run isort --check --recursive src tests
