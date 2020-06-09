@@ -1,0 +1,20 @@
+repos:
+-   repo: https://github.com/timothycrosley/isort
+    rev: 4.3.21
+    hooks:
+    -   id: isort
+-   repo: https://github.com/ambv/black
+    rev: 19.10b0
+    hooks:
+    - id: black
+      language_version: python3
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+    -   id: check-json
+    -   id: end-of-file-fixer
+    -   id: debug-statements
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.0a2
+    hooks:
+    -   id: flake8
