@@ -20,7 +20,7 @@ jobs:
       - name: Build docker image
         run: |
           source $HOME/.poetry/env
-          poetry install --dev
+          poetry install
       - name: Build docker image
         run: |
           source $HOME/.poetry/env
