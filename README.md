@@ -36,4 +36,4 @@ log.info("Hello There")
 
 ```
 
-The `auth` flow relies on the GCloud Auth flow, you can read more [here](https://googleapis.dev/python/google-api-core/latest/auth.html)
+The `auth` flow relies on the GCloud Auth flow, you can read more [here](https://googleapis.dev/python/google-api-core/latest/auth.html).
