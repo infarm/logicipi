@@ -44,6 +44,6 @@ log = gcp_logger().get_logger()
 log.error("Hello There", value=1)
 ```
 
-`gcp_logger` returns a singleton, so the object can be instaciated only once.
+`gcp_logger` returns a singleton, so the object can be instantiated only once.
 
 The `auth` flow relies on the GCloud Auth flow, you can read more [here](https://googleapis.dev/python/google-api-core/latest/auth.html).
