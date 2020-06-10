@@ -36,5 +36,5 @@ jobs:
       - name: Running tests
         run: |
           source $HOME/.poetry/env
-          poetry run pytest --codecov logicipi
+          poetry run pytest --cov logicipi
           bash <(curl -s https://codecov.io/bash)
