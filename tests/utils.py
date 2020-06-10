@@ -13,9 +13,12 @@ class LogCapture:
         self.entries = []
 
     def __call__(self, _, method_name, event_dict):
-        # event_dict is a tuple with with multiple elements
-        # (({log dict},),{dict with extra info})
-        self.entries.append(event_dict[0][0])
+        if "event" in event_dict:
+            self.entries.append(event_dict)
+        else:
+            # event_dict is a tuple with multiple elements
+            # (({log dict},),{dict with extra info})
+            self.entries.append(event_dict[0][0])
         raise DropEvent
 
 

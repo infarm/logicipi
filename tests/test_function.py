@@ -1,3 +1,5 @@
+from structlog._config import BoundLoggerLazyProxy
+
 from logicipi.function import Logger, LogSeverity, stackdriver_logger_patcher
 
 
@@ -38,9 +40,23 @@ def test_Logger():
     assert instance.region == region
 
 
-def test_Logger_singleton():
+def test_Logger_singleton(mocker):
     instance_1 = Logger(function_name='my-function', region="my-region")
     instance_2 = Logger(function_name='my-function', region="my-region")
 
     assert instance_1 is instance_2
+
+    mocker.patch("logicipi.function._logger")
+
     assert instance_1.get_logger() is instance_2.get_logger()
+    assert isinstance(instance_1, BoundLoggerLazyProxy) is False
+
+
+def test_Logger_with_stackdriver_disabled(mocker, monkeypatch):
+    monkeypatch.setenv("DISABLE_GOOGLE_STACKDRIVER", "true")
+
+    instance = Logger(function_name='my-function', region="my-region")
+
+    log = instance.get_logger()
+
+    assert isinstance(log, BoundLoggerLazyProxy)

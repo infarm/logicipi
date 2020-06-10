@@ -14,13 +14,17 @@ def test_from_level_to_severity_with_empty_event_dict():
         assert from_level_to_severity(None, None, {}) == {}
 
 
-def test_configure_structlog():
+def test_no_configured_structlog(reset_structlog_conf):
     log = structlog.get_logger()
 
     with capture_logs() as cap_logs:
         log.info('Hello There')
 
         assert 'severity' not in cap_logs[0]
+
+
+def test_configured_structlog(reset_structlog_conf):
+    log = structlog.get_logger()
 
     configure_structlog()
 
