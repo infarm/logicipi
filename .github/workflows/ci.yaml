@@ -36,5 +36,8 @@ jobs:
       - name: Running tests
         run: |
           source $HOME/.poetry/env
-          poetry run pytest --cov logicipi -v
+          poetry run pytest --cov-report=xml --cov logicipi -v
+          bash <(curl -s https://codecov.io/bash)
+      - name: Publish coverage report
+        run: |
           bash <(curl -s https://codecov.io/bash)
