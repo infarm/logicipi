@@ -62,9 +62,12 @@ class Logger:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, *, function_name: str, region: str) -> None:
-        self.function_name = function_name
-        self.region = region
+    def __init__(self, *, function_name: str = None, region: str = None) -> None:
+        # attributes can be set only once
+        if hasattr(self, "function_name") is False:
+            self.function_name = function_name
+        if hasattr(self, "region") is False:
+            self.region = region
         self._logger = None
 
     def get_logger(self) -> Union[BoundLogger, google_logging.logger.Logger]:
