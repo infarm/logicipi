@@ -1,0 +1,43 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Installing Poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -o get-poetry.py
+          python3 get-poetry.py
+          source $HOME/.poetry/env
+          poetry config virtualenvs.in-project true
+      - name: Installing deps
+        run: |
+          source $HOME/.poetry/env
+          poetry install
+      - name: Running flake8
+        run: |
+          source $HOME/.poetry/env
+          poetry run flake8 src tests
+      - name: Running black
+        run: |
+          source $HOME/.poetry/env
+          poetry run black --check src tests
+      - name: Running isort
+        run: |
+          source $HOME/.poetry/env
+          poetry run isort --check --recursive src tests
+      - name: Running tests
+        run: |
+          source $HOME/.poetry/env
+          poetry run pytest --cov-report=xml --cov logicipi -v
+          bash <(curl -s https://codecov.io/bash)
+      - name: Publish coverage report
+        run: |
+          bash <(curl -s https://codecov.io/bash)
