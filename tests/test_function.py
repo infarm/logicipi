@@ -70,25 +70,28 @@ def test_you_can_set_Logger_only_once():
         ({"name": "FUNCTION_REGION", "value": "my-region"}, "function_name"),
     ],
 )
-def test_Logger_with_one_env_missing(monkeypatch, envs, err_message):
+def test_Logger_with_one_env_missing(mocker, monkeypatch, envs, err_message):
     monkeypatch.setenv(**envs)
+    mocker.patch("logicipi.function._logger")
 
     with pytest.raises(ValueError) as err:
-        Logger()
+        Logger().get_logger()
 
     assert err_message in str(err)
 
 
-def test_Logger_with_env_variables(monkeypatch):
+def test_Logger_with_env_variables(mocker, monkeypatch):
     env_fn_name = {"name": "FUNCTION_NAME", "value": "my-function"}
     env_fn_region = {"name": "FUNCTION_REGION", "value": "my-region"}
     monkeypatch.setenv(**env_fn_name)
+    mocker.patch("logicipi.function._logger")
 
     # valid function_name and function_region
     monkeypatch.setenv(**env_fn_name)
     monkeypatch.setenv(**env_fn_region)
 
     instance = Logger()
+    instance.get_logger()
 
     assert instance.function_name == env_fn_name['value']
     assert instance.region == env_fn_region['value']
@@ -96,7 +99,7 @@ def test_Logger_with_env_variables(monkeypatch):
 
 def test_Logger_with_missing_envs():
     with pytest.raises(ValueError):
-        Logger()
+        Logger().get_logger()
 
 
 def test_Logger_with_stackdriver_disabled(monkeypatch):

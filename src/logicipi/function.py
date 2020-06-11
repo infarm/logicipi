@@ -71,6 +71,9 @@ class Logger:
         if hasattr(self, "region") is False or self.region is None:
             self.region = region if region else os.environ.get("FUNCTION_REGION")
 
+        self._logger = None
+
+    def _initialize(self):
         if self.function_name is None:
             raise ValueError(
                 "function_name can't be None, "
@@ -83,9 +86,8 @@ class Logger:
                 "pass an argument or use an env variable (FUNCTION_REGION)"
             )
 
-        self._logger = None
-
     def get_logger(self) -> Union[BoundLogger, google_logging.logger.Logger]:
+        self._initialize()
         if not self._logger:
             self._logger = _logger(self.function_name, self.region)
         return self._logger
