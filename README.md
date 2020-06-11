@@ -33,6 +33,9 @@ log.info("Hi There")
 from logicipi import gcp_logger
 
 log = gcp_logger(function_name="my-function-name", region="my-region").get_logger()
+# you can omit `function_name` and `region`
+# if you have `FUNCTION_NAME` and `FUNCTION_REGION`
+# as env variables
 
 log.info("Hello There", value=1)
 
@@ -44,6 +47,6 @@ log = gcp_logger().get_logger()
 log.error("Hello There", value=1)
 ```
 
-`gcp_logger` returns a singleton, so the object can be instantiated only once.
+`gcp_logger` returns a singleton, so the object can be instantiated multiple times.
 
 The `auth` flow relies on the GCloud Auth flow, you can read more [here](https://googleapis.dev/python/google-api-core/latest/auth.html).
