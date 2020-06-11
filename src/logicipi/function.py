@@ -73,14 +73,14 @@ class Logger:
 
         if self.function_name is None:
             raise ValueError(
-                "function_name has to be set, "
-                "either with as argument or as env variable (FUNCTION_NAME)"
+                "function_name can't be None, "
+                "pass an argument or use an env variable (FUNCTION_NAME)"
             )
 
         if self.region is None:
             raise ValueError(
-                "region has to be set, "
-                "either with as argument or as env variable (FUNCTION_REGION)"
+                "region can't be None, "
+                "pass an argument or use an env variable (FUNCTION_REGION)"
             )
 
         self._logger = None
