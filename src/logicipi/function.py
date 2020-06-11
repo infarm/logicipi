@@ -64,10 +64,25 @@ class Logger:
 
     def __init__(self, *, function_name: str = None, region: str = None) -> None:
         # attributes can be set only once
-        if hasattr(self, "function_name") is False:
-            self.function_name = function_name
-        if hasattr(self, "region") is False:
-            self.region = region
+        if hasattr(self, "function_name") is False or self.function_name is None:
+            self.function_name = (
+                function_name if function_name else os.environ.get("FUNCTION_NAME")
+            )
+        if hasattr(self, "region") is False or self.region is None:
+            self.region = region if region else os.environ.get("FUNCTION_REGION")
+
+        if self.function_name is None:
+            raise ValueError(
+                "function_name has to be set, "
+                "either with as argument or as env variable (FUNCTION_NAME)"
+            )
+
+        if self.region is None:
+            raise ValueError(
+                "region has to be set, "
+                "either with as argument or as env variable (FUNCTION_REGION)"
+            )
+
         self._logger = None
 
     def get_logger(self) -> Union[BoundLogger, google_logging.logger.Logger]:
