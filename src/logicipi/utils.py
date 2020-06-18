@@ -5,8 +5,7 @@ from structlog import DropEvent, configure, get_config
 
 class LogCapture:
     """
-    Class for capturing log messages in its entries list.
-    but you can use this class if you want to capture logs with other patterns.
+    Log processor for capturing log messages in its entries list, useful for testing.
     """
 
     def __init__(self):

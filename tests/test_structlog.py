@@ -1,8 +1,8 @@
 import pytest
 import structlog
-from utils import capture_logs
 
 from logicipi.structlog import configure_structlog, from_level_to_severity
+from logicipi.utils import capture_logs
 
 
 def test_from_level_to_severity():
