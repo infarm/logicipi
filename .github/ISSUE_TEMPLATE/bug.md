@@ -14,7 +14,7 @@ A clear and concise description of what the bug is.
 A clear and concise description of what you expected to happen.
 
 **Where is it observable?**
-Add links if applicable
+Add links if applicable.
 
 **Screenshots/logs**
 Add screenshots or copy-paste logs to help explain your problem.
