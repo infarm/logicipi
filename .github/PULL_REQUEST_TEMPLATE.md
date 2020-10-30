@@ -14,7 +14,7 @@
 
 ### Testing
 <!--- Please describe in detail how you tested your changes (e.g. manual changes to the cloud function in the GCP GUI). -->
-<!--- Add screenshots if appropriate, or a link to your testing Grafana dashboard -->
+<!--- Add screenshots if appropriate -->
 
 
 ### Checklist
