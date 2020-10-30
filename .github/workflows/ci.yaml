@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Clone repository
+        uses: actions/checkout@v2
       - name: Get poetry
         uses: abatilo/actions-poetry@v2.0.0
       - name: Load cache
