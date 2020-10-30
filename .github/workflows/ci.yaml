@@ -7,35 +7,42 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8]
     env:
       SHA: ${{ github.sha }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Installing Poetry
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Get poetry
+        uses: abatilo/actions-poetry@v2.0.0
+      - name: Load cache
+        id: valid-cache
+        uses: actions/cache@v2
+        with:
+          key: poetry-${{ hashFiles('poetry.lock') }}
+          path: |
+            ${{ github.workspace }}/.venv
+      - name: Install dependencies
+        if: steps.valid-cache.outputs.cache-hit != 'true'
         run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -o get-poetry.py
-          python3 get-poetry.py
-          source $HOME/.poetry/env
-          poetry config virtualenvs.in-project true
-      - name: Installing deps
-        run: |
-          source $HOME/.poetry/env
+          python3 -m venv .venv
           poetry install
       - name: Running flake8
         run: |
-          source $HOME/.poetry/env
           poetry run flake8 src tests
       - name: Running black
         run: |
-          source $HOME/.poetry/env
           poetry run black --check src tests
       - name: Running isort
         run: |
-          source $HOME/.poetry/env
           poetry run isort --check --recursive src tests
       - name: Running tests
         run: |
-          source $HOME/.poetry/env
           poetry run pytest --cov-report=xml --cov logicipi -v
           bash <(curl -s https://codecov.io/bash)
       - name: Publish coverage report
