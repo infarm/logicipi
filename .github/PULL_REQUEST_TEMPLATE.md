@@ -13,7 +13,7 @@
 
 
 ### Testing
-<!--- Please describe in detail how you tested your changes (e.g. manual changes to the cloud function in the GCP GUI). -->
+<!--- Please describe in detail how you tested your changes. -->
 <!--- Add screenshots if appropriate -->
 
 
