@@ -44,7 +44,12 @@ jobs:
           poetry run isort --check --recursive src tests
       - name: Running tests and coverage
         run: |
-          poetry run pytest -v --cov-report=xml --cov=logicipi
+          poetry run pytest -v --cov-report=xml --cov=src
       - name: Send coverage
-        run:
-          poetry run coveralls
+        run: |
+          if [ "${{ matrix.python-version }}" = "3.8" ]; then
+            poetry run coveralls
+          else
+            echo "Step skipped for older Python versions"
+          fi
+          
