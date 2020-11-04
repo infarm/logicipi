@@ -25,7 +25,7 @@ jobs:
         id: valid-cache
         uses: actions/cache@v2
         with:
-          key: poetry-${{ hashFiles('poetry.lock') }}
+          key: ${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
           path: |
             ${{ github.workspace }}/.venv
       - name: Install dependencies
