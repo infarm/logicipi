@@ -44,4 +44,7 @@ jobs:
           poetry run isort --check --recursive src tests
       - name: Running tests and coverage
         run: |
-          poetry run pytest -v --cov-report=xml --cov=logicipi && coveralls
+          poetry run pytest -v --cov-report=xml --cov=logicipi
+      - name: Send coverage
+        run:
+          poetry run coveralls
