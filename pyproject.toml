@@ -25,7 +25,3 @@ coveralls = "^2.1.2"
 
 [tool.black]
 skip-string-normalization = true
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.masonry.api"
