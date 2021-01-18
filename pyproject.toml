@@ -27,5 +27,5 @@ coveralls = "^2.1.2"
 skip-string-normalization = true
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry==1.0.10"]
+build-backend = "poetry.masonry.api"
