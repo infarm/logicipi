@@ -9,7 +9,7 @@ log = structlog.get_logger()
 
 
 def exception_hook(exc_type, exc_value, exc_traceback) -> None:
-    """Execption hook to jsonify traceback"""
+    """Exception hook to jsonify traceback"""
     log.error(
         "exception",
         exception_type=exc_type.__name__,
