@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.7, 3.8, 3.9]
     env:
       SHA: ${{ github.sha }}
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
           poetry run pytest -v --cov-report=xml --cov=src
       - name: Send coverage
         run: |
-          if [ "${{ matrix.python-version }}" = "3.8" ]; then
+          if [ "${{ matrix.python-version }}" = "3.9" ]; then
             poetry run coveralls
           else
             echo "Step skipped for older Python versions"
