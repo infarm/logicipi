@@ -1,5 +1,6 @@
-
 # LoGiCiPi
+
+**WARNING:** This project is no longer maintained ❄️
 
 A tiny wrapper on structlog and gcloud logging library for applications running inside GCP.
 
